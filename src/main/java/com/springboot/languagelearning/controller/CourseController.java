@@ -64,8 +64,9 @@ public class CourseController {
         return courseService.getCoursesByDifficultyLevel(difficulty, pageable);
     }
 
-    @GetMapping("/{id}")
-    public Course getCourseById(@PathVariable Long id) {
-        return courseService.getCourseById(id);
-    }
+    // @GetMapping("/{id}")
+    // public Course getCourseById(@PathVariable Long id) {
+    //     return courseService.getCourseById(id);
+    // }
+     
 }
