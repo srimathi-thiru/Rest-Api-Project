@@ -11,7 +11,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @SuppressWarnings("null")
     Page<User> findAll(Pageable pageable);
 
-    
-
-
 }
