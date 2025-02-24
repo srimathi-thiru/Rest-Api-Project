@@ -74,12 +74,12 @@ public class EnrollmentService {
         }
     }
 
-    public boolean deleteEnrollment(Long id) {
+    public String deleteEnrollment(Long id) {
         if (enrollmentRepository.existsById(id)) {
             enrollmentRepository.deleteById(id);
-            return true;
+            return "Enrollment deleted successfully";
         }
-        return false;
+        return "Enrollment not deleted";
     }
 
     public List<Enrollment> getEnrollmentsByCourse(Long courseId) {

@@ -70,17 +70,17 @@ public class CourseService {
     }
 
     public List<Course> createMultipleCourses(List<Course> courses) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'createMultipleCourses'");
     }
 
     public Course updateCourse(Long id, Course updatedCourse) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'updateCourse'");
     }
 
     public void deleteCourse(Long id) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'deleteCourse'");
     }
 }

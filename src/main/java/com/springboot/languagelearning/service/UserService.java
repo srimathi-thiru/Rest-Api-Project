@@ -55,4 +55,8 @@ public class UserService {
     return userRepo.findAll(pageable);
     }
 
+    public boolean existsByEmail(String email) {
+        return userRepo.existsByEmail(email);
+    }
+
 }
