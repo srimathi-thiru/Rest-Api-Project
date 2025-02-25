@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/enrollments")
 public class EnrollmentController {
@@ -17,8 +19,10 @@ public class EnrollmentController {
     private EnrollmentService enrollmentService;
 
     @PostMapping("/add")
-    public Enrollment enrollUser(@RequestParam Long userId, @RequestParam Long courseId) {
-        return enrollmentService.enrollUser(userId, courseId);
+    public Enrollment createEnrollment(@RequestParam double progressPercentage, 
+                                       @RequestParam String enrollmentDate) {
+        LocalDate date = LocalDate.parse(enrollmentDate);
+        return enrollmentService.createEnrollment(progressPercentage, date);
     }
 
     @GetMapping("/getAll")
@@ -28,10 +32,10 @@ public class EnrollmentController {
             @RequestParam(defaultValue = "id") String sortField,
             @RequestParam(defaultValue = "asc") String sortDirection) {
 
-        Sort sort = sortDirection.equalsIgnoreCase("desc") 
-                    ? Sort.by(sortField).descending() 
+        Sort sort = sortDirection.equalsIgnoreCase("desc")
+                    ? Sort.by(sortField).descending()
                     : Sort.by(sortField).ascending();
-                    
+
         Pageable pageable = PageRequest.of(page, size, sort);
         return enrollmentService.getAllEnrollments(pageable);
     }

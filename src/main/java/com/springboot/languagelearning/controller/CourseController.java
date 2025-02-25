@@ -2,14 +2,17 @@ package com.springboot.languagelearning.controller;
 
 import com.springboot.languagelearning.entities.Course;
 import com.springboot.languagelearning.service.CourseService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/courses")
@@ -24,16 +27,21 @@ public class CourseController {
     }
 
     
-    @SuppressWarnings("unchecked")
-    @GetMapping("/getAll")
-    public Page<Course> getAllCourses(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size,
-        @RequestParam(defaultValue = "id") String sortBy,
-        @RequestParam(defaultValue = "asc") String sortDirection
-    ) {
+    
+    @GetMapping("/getAllcourses")
+    public ResponseEntity<Page<Course>> getAllCoursesWithParams(
+        @RequestParam int page, 
+        @RequestParam int size, 
+        @RequestParam String sort, 
+        @RequestParam String order){
         Pageable pageable = PageRequest.of(page, size, 
-                          sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending());
+                          order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending());
+        return ResponseEntity.ok( courseService.getAllCourses(pageable));
+    }
+
+    
+    @GetMapping("/getAll")
+    public Page<Course> getAllCourses(Pageable pageable) {
         return (Page<Course>) courseService.getAllCourses(pageable);
     }
 

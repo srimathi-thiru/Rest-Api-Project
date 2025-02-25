@@ -8,7 +8,7 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String languagename;
     private String code;  
     private String description;
 
@@ -17,8 +17,8 @@ public class Language {
     }
 
     
-    public Language(String name, String code, String description) {
-        this.name = name;
+    public Language(String languagename, String code, String description) {
+        this.languagename = languagename;
         this.code = code;
         this.description = description;
     }
@@ -33,11 +33,11 @@ public class Language {
     }
 
     public String getName() {
-        return name;
+        return languagename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String languagename) {
+        this.languagename = languagename;
     }
 
     public String getCode() {

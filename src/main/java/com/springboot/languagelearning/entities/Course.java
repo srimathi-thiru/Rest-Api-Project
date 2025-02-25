@@ -1,6 +1,8 @@
 package com.springboot.languagelearning.entities;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,18 +11,16 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String coursename;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "language_id")
-    private Language language;
+    
 
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficultyLevel;
 
-    @OneToMany(mappedBy = "course")
-    private List<Enrollment> enrolledUsers;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Enrollment> enrollments;
 
     
     public Long getId() {
@@ -31,14 +31,16 @@ public class Course {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    
+    public String getCoursename() {
+        return coursename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 
+    
     public String getDescription() {
         return description;
     }
@@ -47,14 +49,9 @@ public class Course {
         this.description = description;
     }
 
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
+    
+    
+    
     public DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
@@ -63,15 +60,15 @@ public class Course {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public List<Enrollment> getEnrolledUsers() {
-        return enrolledUsers;
-    }
-
-    public void setEnrolledUsers(List<Enrollment> enrolledUsers) {
-        this.enrolledUsers = enrolledUsers;
-    }
-
     
+    public List<Enrollment> getEnrollments() {
+        return enrollments == null ? new ArrayList<>() : new ArrayList<>(enrollments);
+    }
+
+    public void setEnrollments(List<Enrollment> enrollments) {
+        this.enrollments = enrollments == null ? new ArrayList<>() : new ArrayList<>(enrollments);
+    }
+
     public enum DifficultyLevel {
         BEGINNER,
         INTERMEDIATE,
