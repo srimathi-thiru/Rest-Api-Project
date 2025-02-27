@@ -19,8 +19,7 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficultyLevel;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Enrollment> enrollments;
+   
 
     
     public Long getId() {
@@ -58,15 +57,6 @@ public class Course {
 
     public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
-    }
-
-    
-    public List<Enrollment> getEnrollments() {
-        return enrollments == null ? new ArrayList<>() : new ArrayList<>(enrollments);
-    }
-
-    public void setEnrollments(List<Enrollment> enrollments) {
-        this.enrollments = enrollments == null ? new ArrayList<>() : new ArrayList<>(enrollments);
     }
 
     public enum DifficultyLevel {

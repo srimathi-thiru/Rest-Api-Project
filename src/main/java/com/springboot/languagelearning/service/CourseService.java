@@ -20,7 +20,8 @@ public class CourseService {
 
    
     public Course getCourseById(Long id) {
-        return courseRepository.findById(id).orElse(null);
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
     }
 
     public List<Course> createMultipleCourses(List<Course> courses) {

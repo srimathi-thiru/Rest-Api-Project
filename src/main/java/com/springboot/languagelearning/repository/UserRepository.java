@@ -13,9 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @SuppressWarnings("null")
     Page<User> findAll(Pageable pageable);
 
-    // @Query("SELECT u FROM User u WHERE u.id = :id")
-    // User findUserById(@Param("id") Long id);
-
     @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.email = :email")
     boolean existsByEmail(@Param("email") String email);
 

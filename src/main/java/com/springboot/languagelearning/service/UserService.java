@@ -24,7 +24,8 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
     public User updateUser(Long id, User userDetails) {
