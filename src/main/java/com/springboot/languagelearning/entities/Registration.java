@@ -1,19 +1,36 @@
 package com.springboot.languagelearning.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 @Entity
 public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private User user;
     private String course;
     private int progressPercentage;
     private String enrollmentDate;
 
+    public Registration() {
+    }
+
+
+    public Registration(User user, String course, int progressPercentage, String enrollmentDate) {
+        this.user = user;
+        this.course = course;
+        this.progressPercentage = progressPercentage;
+        this.enrollmentDate = enrollmentDate;
+    }
     // Getters and Setters
     public Long getId() {
         return id;
@@ -23,11 +40,11 @@ public class Registration {
         this.id = id;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

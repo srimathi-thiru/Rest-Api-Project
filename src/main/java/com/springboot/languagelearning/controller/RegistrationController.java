@@ -3,6 +3,7 @@ package com.springboot.languagelearning.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.springboot.languagelearning.entities.Registration;
+import com.springboot.languagelearning.entities.User;
 import com.springboot.languagelearning.service.RegistrationService;
 import java.util.List;
 
@@ -41,9 +42,9 @@ public class RegistrationController {
     }
 
    
-    @GetMapping("/user/{user}")
-    public List<Registration> getRegistrationsByUser(@PathVariable String user) {
-        return service.getRegistrationsByUser(user);
+    @GetMapping("/user/{userId}")
+    public List<Registration> getRegistrationsByUser(@PathVariable Long userId) {
+        return service.getRegistrationsByUser(userId);
     }
 
     @GetMapping("/course/{course}")

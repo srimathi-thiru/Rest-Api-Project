@@ -1,6 +1,9 @@
 package com.springboot.languagelearning.entities;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,13 +16,20 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String preferredLanguage;
+    @OneToOne
+    @JoinColumn(name = "preferred_language_id") // Foreign key in User table
+    private Language preferredLanguage;
+
     private String profilePicture;
 
     @ElementCollection 
     private List<Long> enrolledCourses;
 
-    public User(Long id, String name, String email, String password, String preferredLanguage, String profilePicture) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Registration> registrations;
+
+    public User(Long id, String name, String email, String password, Language preferredLanguage, String profilePicture) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -63,11 +73,11 @@ public class User {
         this.password = password;
     }
 
-    public String getPreferredLanguage() {
+    public Language getPreferredLanguage() {
         return preferredLanguage;
     }
 
-    public void setPreferredLanguage(String preferredLanguage) {
+    public void setPreferredLanguage(Language preferredLanguage) {
         this.preferredLanguage = preferredLanguage;
     }
 
@@ -85,5 +95,13 @@ public class User {
 
     public void setEnrolledCourses(List<Long> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
+    }
+
+    public List<Registration> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
     }
 }
